@@ -15,11 +15,21 @@ export interface SymbolData {
   currency: string
 }
 
-const raw = snapshot as unknown as Record<string, SymbolData | string>
-export const FETCHED_AT = raw._fetchedAt as string
+type SnapshotMap = Record<string, SymbolData | string>
+
+let active: SnapshotMap = snapshot as unknown as SnapshotMap
+
+/** Swap in a newer snapshot (fetched over the air at startup). */
+export function applySnapshotOverride(data: SnapshotMap): void {
+  active = data
+}
+
+export function getFetchedAt(): string {
+  return active._fetchedAt as string
+}
 
 export function getSnapshot(symbol: string): SymbolData | null {
-  const d = raw[symbol]
+  const d = active[symbol]
   if (!d || typeof d === 'string') return null
   return d as SymbolData
 }

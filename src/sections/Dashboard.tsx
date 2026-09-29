@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import CandleChart from '@/components/CandleChart'
 import Sparkline from '@/components/Sparkline'
 import { useLiveQuotes } from '@/hooks/useLiveQuotes'
-import { WATCHLIST, CORE_ASSETS, getSnapshot, analyze, fmtPrice, fmtPct, rsiLabel, FETCHED_AT } from '@/lib/market'
+import { WATCHLIST, CORE_ASSETS, getSnapshot, analyze, fmtPrice, fmtPct, rsiLabel, getFetchedAt } from '@/lib/market'
 import type { WatchItem } from '@/lib/market'
 import { TrendingUp, TrendingDown, Minus, Activity, Radio } from 'lucide-react'
 
@@ -69,7 +69,7 @@ export default function Dashboard() {
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
         <div className="flex items-center gap-2">
           <Activity className="h-3.5 w-3.5" />
-          <span>Daily candles · snapshot {new Date(FETCHED_AT).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+          <span>Daily candles · snapshot {new Date(getFetchedAt()).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
         </div>
         <div className="flex items-center gap-2">
           <Radio className={`h-3.5 w-3.5 ${live ? 'animate-pulse text-emerald-400' : 'text-slate-600'}`} />
